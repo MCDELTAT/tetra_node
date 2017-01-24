@@ -1,5 +1,23 @@
-$color: #222222;
+$color: #aaaaaa;
 
 p {
   color: $color;
+}
+
+.file-upload {
+  position: relative;
+  margin: 10px;
+  color: #ffffff;
+}
+
+.file-upload input.file-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
 }
