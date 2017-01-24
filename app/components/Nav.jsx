@@ -1,6 +1,7 @@
 var React = require('react');
 var Papa = require('Papa');
 var Stats = require('Stats');
+var Graph = require('Graph');
 
 var data;
 var minMax;
@@ -18,21 +19,19 @@ var Nav = React.createClass({
         //call handler functions from in here, don't worry about data races.
         Stats.removeEmptyElements(data);
         var minMax = Stats.getMinMax(data);
-        // scale(Math.abs(minMax["xMax"]/minMax["xMin"]),Math.abs(minMax["yMax"]/minMax["yMin"]),Math.abs(minMax["zMax"]/minMax["zMin"]));
         console.log(minMax);
+        var xScale = (minMax["xMax"]/minMax["xMin"]);
+        var yScale = (minMax["yMax"]/minMax["yMin"]);
+        var zScale = (minMax["zMax"]/minMax["zMin"]);
+        Graph.scale(Math.abs(xScale),Math.abs(yScale),Math.abs(zScale));
         Stats.createSpeciesObjects(data);
+        //for # of species in SpeciesArray, calculate the lengths
+        Stats.getSpeciesLength();
+        Stats.getVisibilityRange(); //generate the ranges for the visibility function.
+        Graph.pointsDraw();
       }
     });
   },
-      //   scale(Math.abs(minMax["xMax"]/minMax["xMin"]),Math.abs(minMax["yMax"]/minMax["yMin"]),Math.abs(minMax["zMax"]/minMax["zMin"]));
-      //               //for # of species in SpeciesArray, calculate the lengths
-      //               getSpeciesLength();
-      //               getVisibilityRange(); //generate the ranges for the visibility function.
-      //               //for # of species, draw them all.
-      //               for (var i=0; i<speciesArray.length; i++){
-      //                  drawPoints(i, speciesLengths[i]);
-      //               }
-      // }
   render: function () {
     return (
       <div className="top-bar">
@@ -42,7 +41,7 @@ var Nav = React.createClass({
   				</ul>
   			</div>
   			<div className="top-bar-right">
-          <form>
+          <form onSubmit={Graph.resetCamera}>
             <ul className="menu">
   						<li>
                 <button className="file-upload button">
@@ -53,6 +52,9 @@ var Nav = React.createClass({
                     }}/>Open File
                 </button>
   						</li>
+              <li>
+                <button className="button top-bar-right"><i className="fa fa-video-camera fa-lg"/></button>
+              </li>
   					</ul>
           </form>
   			</div>

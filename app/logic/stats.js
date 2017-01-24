@@ -61,7 +61,7 @@ var speciesArray = []; //array that will contain the different species
 exports.speciesArray = speciesArray;
 //function takes in response data, and splits the different species into
 //different objects. These objects are then stored in an array.
-exports.createSpeciesObjects = function(object){
+exports.createSpeciesObjects = function(object) {
 	var speciesName1 = "";
 	var speciesCount = -1;
 	//loop through parsedData Object, for each line, add to corresponding species obj.
@@ -77,6 +77,31 @@ exports.createSpeciesObjects = function(object){
 	}
 	// console.log("The contents of array are: \n",speciesArray[2]); //method access single species obj.
 	// console.log("The value of speciesCount is: ",(speciesCount+1));
-
+  //console.log(speciesArray);
 	return speciesArray;
+}
+
+var speciesLengths = [];
+exports.speciesLengths = speciesLengths;
+//Get the number of graph points in a species from SpeciesArray
+exports.getSpeciesLength = function() {
+	for (var i=0; i<speciesArray.length; i++){
+		var length = 0;
+		var length = Object.keys(speciesArray[i]).length;
+		speciesLengths.push(length);
+		console.log("The length of the selected species is: ",length);
+	}
+	console.log("The lengths of the species are: ",speciesLengths);
+}
+
+//function to generate the id numbers of the species in the graph (so they can be toggled on/off)
+//No input parameters, no returns. It adds a start and stop range to to visibilityRange[].
+var visibilityRange = [];
+exports.visibilityRange = visibilityRange;
+visibilityRange.push(4); //push starting index value into the array
+exports.getVisibilityRange = function() {
+	for (var i=1; i<=speciesArray.length; i++){
+		//note that this causes a one-off error. For each group after 1, there will be 1*(n-1) points not included in the graph
+		visibilityRange.push(((visibilityRange[(visibilityRange.length)-1])+speciesLengths[i-1])) //add the length of species to the last entry in the array
+	}
 }
