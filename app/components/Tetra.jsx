@@ -1,9 +1,15 @@
 var React = require('react');
+var Graph = require('Graph');
 
 var Tetra = React.createClass ({
+  componentDidMount: function () {
+	   Graph.init();
+     Graph.animate();
+	},
   render: function () {
     return (
-      <p>Tetra app.</p>
+      <div id="threeContainer" ref="threeContainer">
+      </div>
     );
   }
 });

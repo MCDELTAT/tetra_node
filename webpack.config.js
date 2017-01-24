@@ -27,6 +27,7 @@ module.exports = {
 			Tetra: 'app/components/Tetra.jsx',
 			Papa: 'node_modules/papaparse/papaparse.min.js',
 			Stats: 'app/logic/stats.js',
+			Graph: 'app/logic/graph.js',
 			applicationStyles: 'app/styles/app.scss'
 		},
 		extensions: ['', '.js', '.jsx']
