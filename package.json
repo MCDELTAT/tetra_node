@@ -13,7 +13,9 @@
     "papaparse": "^4.1.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-router": "^3.0.2"
+    "react-router": "^3.0.2",
+    "three": "^0.84.0",
+    "three-orbit-controls": "^82.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

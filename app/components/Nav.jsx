@@ -1,27 +1,30 @@
 var React = require('react');
 var Papa = require('Papa');
+var Stats = require('Stats');
+
+var data;
+var minMax;
 
 var Nav = React.createClass({
   handleFileSelect: function (evt) {
     var file = evt.target.files[0];
     //console.log(file);
-    var data;
 
     Papa.parse(evt.target.files[0], {
       header: true,
       dynamicTyping: true,
       complete: function(results) {
-        data = results;
+        data = results.data;
         //call handler functions from in here, don't worry about data races.
-        //first, check to see if the final object in array is empty, if true, remove.
-        console.log(data);
+        Stats.removeEmptyElements(data);
+        var minMax = Stats.getMinMax(data);
+        // scale(Math.abs(minMax["xMax"]/minMax["xMin"]),Math.abs(minMax["yMax"]/minMax["yMin"]),Math.abs(minMax["zMax"]/minMax["zMin"]));
+        console.log(minMax);
+        Stats.createSpeciesObjects(data);
       }
     });
   },
-      //   minMax = getMinMax();
       //   scale(Math.abs(minMax["xMax"]/minMax["xMin"]),Math.abs(minMax["yMax"]/minMax["yMin"]),Math.abs(minMax["zMax"]/minMax["zMin"]));
-      //               createSpeciesObjects();
-      //
       //               //for # of species in SpeciesArray, calculate the lengths
       //               getSpeciesLength();
       //               getVisibilityRange(); //generate the ranges for the visibility function.
