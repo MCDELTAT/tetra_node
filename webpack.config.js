@@ -28,7 +28,8 @@ module.exports = {
 			Papa: 'node_modules/papaparse/papaparse.min.js',
 			Stats: 'app/logic/stats.js',
 			Graph: 'app/logic/graph.js',
-			applicationStyles: 'app/styles/app.scss'
+			applicationStyles: 'app/styles/app.scss',
+			grid: 'file-loader!app/styles/textures/pps.png'
 		},
 		extensions: ['', '.js', '.jsx']
 	},
@@ -41,6 +42,10 @@ module.exports = {
 				},
 				test: /\.jsx?$/,
 				exclude: /(node_modules|bower_components)/
+			},
+			{
+				loader: "file-loader?name=/public/icons/[name].[ext]",
+				test: /\.(jpe?g|png|gif|svg)$/i
 			}
 		]
 	},
