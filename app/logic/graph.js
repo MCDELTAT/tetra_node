@@ -5,6 +5,7 @@ var Stats = require('Stats');
 var scene, camera, controls, renderer;
 var geometry, material, mesh;
 
+// reset the camera position to defaults using quaternion math
 exports.resetCamera = function(){
   camera.position.z = 110.5;
   camera.position.x = 110.5;
@@ -12,21 +13,70 @@ exports.resetCamera = function(){
   controls.reset();
 }
 
-exports.scale = function(x, y, z) {
+// create the axis labels
+exports.createText = function() {
+  var loader = new THREE.FontLoader();
+  loader.load( './helvetiker_regular.typeface.json', function (font) {
+    // everything for axis one label
+    var textGeometryA1 = new THREE.TextGeometry( "Axis1", {
+      font: font,
+      size: 2,
+      height: 1,
+      curveSegments: 4,
+    });
+    let textMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+    var textMeshA1 = new THREE.Mesh( textGeometryA1, textMaterial );
+    exports.textMeshA1 = textMeshA1; // best way to handle this?
+    textMeshA1.rotation.y = Math.PI / 4;
+    textMeshA1.position.set (27, -25, textMeshA1.position.z);
+
+    var textGeometryA2 = new THREE.TextGeometry( "Axis2", {
+      font: font,
+      size: 2,
+      height: 1,
+      curveSegments: 4,
+    });
+    var textMeshA2 = new THREE.Mesh( textGeometryA2, textMaterial );
+    textMeshA2.rotation.y = Math.PI / 4;
+    textMeshA2.position.set (-5, -25, 32);
+
+    var textGeometryA3 = new THREE.TextGeometry( "Axis3", {
+      font: font,
+      size: 2,
+      height: 1,
+      curveSegments: 4,
+    });
+    var textMeshA3 = new THREE.Mesh( textGeometryA3, textMaterial );
+    textMeshA3.rotation.y = Math.PI / 4;
+    textMeshA3.rotation.z = Math.PI / 2;
+    textMeshA3.position.set (-25, -3.5, 27);
+
+    // add all three axis labels to the graph
+    scene.add(textMeshA1, textMeshA2, textMeshA3);
+  });
+}
+
+exports.refreshText = function() {
+  //remove the previous labels
+  //create new labels
+}
+
+// FIX THIS! scale the points so that they are alligned correctly to grid
+exports.scale = function(element, x, y, z) {
   if(x >= y && x >= z){
-  	this.graph.scale.x += x;
-  	this.graph.scale.y += x;
-  	this.graph.scale.z += x;
+  	element.scale.x += x;
+  	element.scale.y += x;
+  	element.scale.z += x;
   }
   else if(y >= x && y >= z){
-  	this.graph.scale.x += y;
-  	this.graph.scale.y += y;
-  	this.graph.scale.z += y;
+  	element.scale.x += y;
+  	element.scale.y += y;
+  	element.scale.z += y;
   }
   else if(z >= y && z >= x){
-  	this.graph.scale.x += z;
-  	this.graph.scale.y += z;
-  	this.graph.scale.z += z;
+  	element.scale.x += z;
+  	element.scale.y += z;
+  	element.scale.z += z;
   }
   console.log("x=:",x);
   console.log("y=:",y);
@@ -121,6 +171,9 @@ exports.init = function() {
       opacity: 1
     })
   ];
+
+  //add the axis labels for the first time
+  this.createText();
 
   var graph = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
   exports.graph = graph;

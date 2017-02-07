@@ -23,7 +23,8 @@ var Nav = React.createClass({
         var xScale = (minMax["xMax"]/minMax["xMin"]);
         var yScale = (minMax["yMax"]/minMax["yMin"]);
         var zScale = (minMax["zMax"]/minMax["zMin"]);
-        Graph.scale(Math.abs(xScale),Math.abs(yScale),Math.abs(zScale));
+        Graph.scale(Graph.graph, Math.abs(xScale),Math.abs(yScale),Math.abs(zScale)); //scale box geometry
+        Graph.scale(Graph.textMeshA1, Math.abs(xScale),Math.abs(yScale),Math.abs(zScale)); //scale box geometry
         Stats.createSpeciesObjects(data);
         //for # of species in SpeciesArray, calculate the lengths
         Stats.getSpeciesLength();
