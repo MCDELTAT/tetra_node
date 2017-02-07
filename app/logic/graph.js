@@ -85,25 +85,25 @@ exports.init = function() {
   //the grids for each of the cube faces. Three have opacity=1 to hide them.
   var materials = [
     new THREE.MeshBasicMaterial({ //right
-      map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+      map: THREE.ImageUtils.loadTexture('textures/graph.png'),
       transparent: true,
       side: THREE.DoubleSide,
       opacity: 0
     }),
     new THREE.MeshBasicMaterial({
-      map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+      map: THREE.ImageUtils.loadTexture('textures/graph.png'),
       transparent: false,
       side: THREE.DoubleSide,
       opacity: 1
     }),
     new THREE.MeshBasicMaterial({
-      map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+      map: THREE.ImageUtils.loadTexture('textures/graph.png'),
       transparent: true,
       side: THREE.DoubleSide,
       opacity: 0
     }),
     new THREE.MeshBasicMaterial({
-      map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+      map: THREE.ImageUtils.loadTexture('textures/graph.png'),
       transparent: false,
       side: THREE.DoubleSide,
       opacity: 1
@@ -115,7 +115,7 @@ exports.init = function() {
       opacity: 0
     }),
     new THREE.MeshBasicMaterial({
-      map: THREE.ImageUtils.loadTexture('textures/pps.png'),
+      map: THREE.ImageUtils.loadTexture('textures/graph.png'),
       transparent: false,
       side: THREE.DoubleSide,
       opacity: 1
@@ -128,6 +128,7 @@ exports.init = function() {
 
   renderer = new THREE.WebGLRenderer();
   renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.setClearColor (0xffffff);
 
   var div = document.getElementById("threeContainer");
   div.appendChild( renderer.domElement );
